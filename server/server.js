@@ -15,11 +15,12 @@ app.use(express.static(publicPath));
 io.on('connection', (socket) => {
 	console.log('New user connected');
 
-	socket.emit('newMessage', generateMessage('Admin', 'Welcome govnyuk'));
-	socket.broadcast.emit('newMessage', generateMessage('Admin', 'One more Govnyuk joined'))
-	socket.on('createMessage', (message) => {
-
+	socket.emit('newMessage', generateMessage('Admin', 'Welcome User'));
+	socket.broadcast.emit('newMessage', generateMessage('Admin', 'One more user joined'))
+	socket.on('createMessage', (message, callback) => {
+		console.log(message);
 		io.emit('newMessage', generateMessage(message.from, message.text));
+		callback('This is from server');
 	});
 
 

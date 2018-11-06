@@ -5,9 +5,17 @@
 	<meta charset="utf-8">
 </head>
 <body>
-	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod impedit suscipit magnam amet, voluptates ipsa quibusdam, consectetur odit sapiente ullam quos, sed tenetur omnis dicta qui maiores in possimus, inventore.</p>
+	<h1>Welcome to Chat app</h1>
 
+	<ul id="messages" style="list-style-type:none"></ul>
+
+	<form id="message-form">
+		<input type="text" placeholder="Your message here" name="message"/>	
+		<button>Send!</button>
+	</form>
+	
 	<script src="/socket.io/socket.io.js"></script>
+	<script src="/js/libs/jquery-3.3.1.min.js"></script>
 	<script src="/js/index.js"></script>
 </body>
 </html>
