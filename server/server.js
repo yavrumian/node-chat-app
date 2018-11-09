@@ -3,7 +3,7 @@ const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
 
-const {generateMessage} = require('./utils/message');
+const {generateMessage, generateLocMessage} = require('./utils/message');
 const publicPath = path.join(__dirname, '../public');
 const port = process.env.PORT || 8080;
 var app = express();
@@ -18,11 +18,13 @@ io.on('connection', (socket) => {
 	socket.emit('newMessage', generateMessage('Admin', 'Welcome User'));
 	socket.broadcast.emit('newMessage', generateMessage('Admin', 'One more user joined'))
 	socket.on('createMessage', (message, callback) => {
-		console.log(message);
 		io.emit('newMessage', generateMessage(message.from, message.text));
 		callback('This is from server');
 	});
 
+	socket.on('createLocMessage', (coords) => {
+		io.emit('newLocMessage', generateLocMessage('Admin', coords.lat, coords.long))
+	})
 
 	socket.on('disconnect', () => {
 		console.log('user disconnected')
