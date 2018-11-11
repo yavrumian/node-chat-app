@@ -8,22 +8,22 @@ socket.on('disconnect', function() {
 });
 
 socket.on('newMessage', function(message) {
-	console.log('New message');
-	console.log(message);
+	var formatedTime = moment(message.createdAt).format('HH:mm');
 	var li = $('<li></li>');
-	li.text(`${message.from}: ${message.text}`);
+	li.text(`${message.from} ${formatedTime}: ${message.text}`);
 
 	$('#messages').append(li);
 })
 
 socket.on('newLocMessage', function(message) {
-		var li = $('<li></li>');
-		var a = $('<a target="_blank">My Location</a>');
-		console.log('New message');
-		li.text(`${message.from}: `);
-		a.attr('href', `${message.url}`);
-		li.append(a);
-		$('#messages').append(li);
+	var formatedTime = moment(message.createdAt).format('HH:mm');
+	var li = $('<li></li>');
+	var a = $('<a target="_blank">My Location</a>');
+	console.log('New message');
+	li.text(`${message.from} ${formatedTime}: `);
+	a.attr('href', `${message.url}`);
+	li.append(a);
+	$('#messages').append(li);
 })
 
 
