@@ -19,7 +19,7 @@ io.on('connection', (socket) => {
 	socket.broadcast.emit('newMessage', generateMessage('Admin', 'One more user joined'))
 	socket.on('createMessage', (message, callback) => {
 		io.emit('newMessage', generateMessage(message.from, message.text));
-		callback('This is from server');
+		callback();
 	});
 
 	socket.on('createLocMessage', (coords) => {
