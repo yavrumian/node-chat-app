@@ -9,10 +9,18 @@ socket.on('disconnect', function() {
 
 socket.on('newMessage', function(message) {
 	var formatedTime = moment(message.createdAt).format('HH:mm');
-	var li = $('<li></li>');
-	li.text(`${message.from} ${formatedTime}: ${message.text}`);
+	// var li = $('<li></li>');
+	// li.text(`${message.from} ${formatedTime}: ${message.text}`);
 
-	$('#messages').append(li);
+	// $('#messages').append(li);
+	var template = $('#message-template').html();
+	var html = Mustache.render(template, {
+		text: message.text,
+		from: message.from,
+		time: formatedTime
+	});
+
+	$('#messages').append(html)
 })
 
 socket.on('newLocMessage', function(message) {

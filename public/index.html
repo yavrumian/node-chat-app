@@ -1,32 +1,60 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Chat</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="./css/styles.css">
+    <title>Chat</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./css/styles.css">
 </head>
+
 <body class="chat">
 
-	<div class="chat__sidebar">
-		<h3>Members</h3>
-		<div id="users"></div>
-	</div>
+    <div class="chat__sidebar">
+        <h3>Members</h3>
+        <div id="users"></div>
+    </div>
 
-	<div class="chat__main">
-		<ul id="messages" class="chat__messages"  style="list-style-type:none"></ul>
-	<div class="chat__footer">
-	<form id="message-form">
-		<input type="text" placeholder="Your message here" name="message" autofocus autocomplete="off" />	
-		<button>Send!</button>
-	</form>
-	<button id="send-loc">Send location!</button>
-</div>
+    <div class="chat__main">
+        <ul id="messages" class="chat__messages" style="list-style-type:none"></ul>
+        <div class="chat__footer">
+            <form id="message-form">
+                <input type="text" placeholder="Your message here" name="message" autofocus autocomplete="off" />
+                <button>Send!</button>
+            </form>
+            <button id="send-loc">Send location!</button>
+        </div>
+    </div>
 	
-	</div>
-	<script src="/socket.io/socket.io.js"></script>
-	<script src="/js/libs/moment.js"></script>
-	<script src="/js/libs/jquery-3.3.1.min.js"></script>
-	<script src="/js/index.js"></script>
+	<script id="message-template" type="text/template">
+		<li class="message">
+			<div class="message__title"> 
+				<h4>{{from}}</h4>
+				<span>{{time}}</span>
+			</div>
+			<div class="message__body">
+				<p>{{text}}</p>
+			</div>
+		</li>
+	</script>
+
+<script id="message-template" type="text/template">
+	<li class="message">
+		<div class="message__title"> 
+			<h4>{{from}}</h4>
+			<span>{{time}}</span>
+		</div>
+		<div class="message__body">
+			<p>{{text}}</p>
+		</div>
+	</li>
+</script>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/libs/mustache.js"></script>
+    <script src="/js/libs/moment.js"></script>
+    <script src="/js/libs/jquery-3.3.1.min.js"></script>
+    <script src="/js/index.js"></script>
 </body>
+
 </html>
