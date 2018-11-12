@@ -25,13 +25,19 @@ socket.on('newMessage', function(message) {
 
 socket.on('newLocMessage', function(message) {
 	var formatedTime = moment(message.createdAt).format('HH:mm');
-	var li = $('<li></li>');
-	var a = $('<a target="_blank">My Location</a>');
-	console.log('New message');
-	li.text(`${message.from} ${formatedTime}: `);
-	a.attr('href', `${message.url}`);
-	li.append(a);
-	$('#messages').append(li);
+	// var li = $('<li></li>');
+	// var a = $('<a target="_blank">My Location</a>');
+	// console.log('New message');
+	// li.text(`${message.from} ${formatedTime}: `);
+	// a.attr('href', `${message.url}`);
+	// li.append(a);
+	var template = $('#loc-message-template').html();
+	var html = Mustache.render(template, {
+		time: formatedTime,
+		from: message.from,
+		url: message.url
+	})
+	$('#messages').append(html);
 })
 
 
@@ -45,7 +51,7 @@ $('#message-form').on('submit', function(e){
 	}, function() {
 		messageTextbox.val('')
 	})
-	
+
 })
 
 var geo = navigator.geolocation

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Chat</title>
     <meta charset="utf-8">
@@ -25,10 +24,10 @@
             <button id="send-loc">Send location!</button>
         </div>
     </div>
-	
+
 	<script id="message-template" type="text/template">
 		<li class="message">
-			<div class="message__title"> 
+			<div class="message__title">
 				<h4>{{from}}</h4>
 				<span>{{time}}</span>
 			</div>
@@ -38,17 +37,19 @@
 		</li>
 	</script>
 
-<script id="message-template" type="text/template">
-	<li class="message">
-		<div class="message__title"> 
-			<h4>{{from}}</h4>
-			<span>{{time}}</span>
-		</div>
-		<div class="message__body">
-			<p>{{text}}</p>
-		</div>
-	</li>
-</script>
+  <script id="loc-message-template" type="text/template">
+		<li class="message">
+			<div class="message__title">
+				<h4>{{from}}</h4>
+				<span>{{time}}</span>
+			</div>
+			<div class="message__body">
+				<p>
+          <a href="{{url}}" target="_blank">My Location</a>
+        </p>
+			</div>
+		</li>
+	</script>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/libs/mustache.js"></script>
@@ -56,5 +57,4 @@
     <script src="/js/libs/jquery-3.3.1.min.js"></script>
     <script src="/js/index.js"></script>
 </body>
-
 </html>
