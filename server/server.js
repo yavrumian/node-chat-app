@@ -17,11 +17,13 @@ var users = new Users();
 app.use(express.static(publicPath));
 
 io.on('connection', (socket) => {
-	console.log('New user connected');
-
 	socket.on('join', (params, callback) => {
+		var username = users.getUserList(params.room).filter((user) => user === params.name);
 		if(!isRealString(params.name) || !isRealString(params.room)){
-			return callback('Name and room name are required')
+			return callback('Name and room name are required');
+		}
+		if(username.length > 0){
+			return callback('that username is already in use, please take another one');
 		}
 		socket.join(params.room);
 		users.removeUser(socket.id);

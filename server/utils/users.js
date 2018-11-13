@@ -1,13 +1,3 @@
-// class Person {
-//     constructor (name, age) {
-//         this.name = name;
-//         this.age = age;
-//     }
-//     getUserDesc(){
-//         return `${this.name} is ${this.age} year(s) old`
-//     }
-// }
-
 class Users {
     constructor() {
         this.users = []
@@ -38,8 +28,4 @@ class Users {
     }
 }
 
-// var me = new Person('Vahe', 16);
-// console.log('this.name', me.name)
-// var desc = me.getUserDesc();
-// console.log(desc)
 module.exports = {Users}
