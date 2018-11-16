@@ -112,7 +112,7 @@ if($(window).width() <= 720){
 
 toggle.on('click', function () {
 	if($('#message-input').is(':focus')) {
-
+		
 	}else{
 		if(toggled){
 			$('#sidebar').hide()
