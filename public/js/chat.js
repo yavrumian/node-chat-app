@@ -100,10 +100,6 @@ locButton.on('click', function(){
 
 	})
 })
-
-  $( "div.chat" ).on( "swiperight", function () {
-  	alert('swiped');
-  } );
 var toggled;
 var toggle = $('#toggle-sidebar');
 if($(window).width() <= 720){
@@ -115,6 +111,9 @@ if($(window).width() <= 720){
 }
 
 toggle.on('click', function () {
+	if($('#message-input').is(':focus')) {
+
+	}else{
 		if(toggled){
 			$('#sidebar').hide()
 			toggle.text('❱');
@@ -124,4 +123,13 @@ toggle.on('click', function () {
 			toggle.text('❰');
 			toggled = true;
 		}
+	}
+})
+$('#message-input').on('focus', function () {
+	if($(window).width() <= 720){
+		$('#sidebar').hide();
+		toggle.text('❱');
+		toggled = false
+	}
+
 })
