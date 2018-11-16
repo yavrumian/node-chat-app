@@ -117,15 +117,15 @@
 		var swipedElement = document.getElementById(triggerElementID);
 		if ( swipeDirection == 'left' ) {
 			// REPLACE WITH YOUR ROUTINES
-			swipedElement.style.backgroundColor = 'orange';
+			console.log(swipe);
 		} else if ( swipeDirection == 'right' ) {
 			// REPLACE WITH YOUR ROUTINES
-			swipedElement.style.backgroundColor = 'green';
+			console.log(swipe);
 		} else if ( swipeDirection == 'up' ) {
 			// REPLACE WITH YOUR ROUTINES
-			swipedElement.style.backgroundColor = 'maroon';
+			console.log(swipe);
 		} else if ( swipeDirection == 'down' ) {
 			// REPLACE WITH YOUR ROUTINES
-			swipedElement.style.backgroundColor = 'purple';
+			console.log(swipe);
 		}
 	}
