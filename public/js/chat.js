@@ -100,3 +100,7 @@ locButton.on('click', function(){
 
 	})
 })
+
+  $( "div.chat" ).on( "swiperight", function () {
+  	alert('swiped');
+  } );
