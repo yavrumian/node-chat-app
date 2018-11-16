@@ -104,3 +104,16 @@ locButton.on('click', function(){
   $( "div.chat" ).on( "swiperight", function () {
   	alert('swiped');
   } );
+var toggled = true;
+var toggle = $('#toggle-sidebar');
+toggle.on('click', function () {
+		if(toggled){
+			$('#sidebar').hide()
+			toggle.text('❱');
+			toggled = false
+		}else{
+			$('#sidebar').show()
+			toggle.text('❰');
+			toggled = true;
+		}
+})
