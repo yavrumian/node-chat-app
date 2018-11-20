@@ -5,39 +5,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="./css/styles.css">
-    <style>
-
-    @media screen and (max-width: 721px) {
-        .chat__sidebar{
-            min-width: 50vw;
-        }
-        .toggle-button{
-            height: 10vw !important;
-            width: 10vw !important;
-            font-size: 8vw !important;
-        }
-    }
-
-    .toggle-button{
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        height: 5vh;
-        width: 5vh;
-        font-size: 4vh;
-        display: inline-block;
-        position: fixed;
-        background-color: #98aabe;
-        color: #286782;
-        left:0;
-        bottom: 52.5vh;
-        text-align: center;
-        cursor: pointer;
-    }
-    </style>
 </head>
 
 <body class="chat">
@@ -47,7 +14,12 @@
         <div id="users"></div>
     </div>
 
-    <div class="chat__main" id="gesuredZone">
+    <div class="chat__main">
+        <div class="chat__head">
+            <button id="back-button">⬅</button>
+            <span id="chat-head"></span>
+
+        </div>
         <ul id="messages" class="chat__messages" style="list-style-type:none"></ul>
         <div class="chat__footer">
             <form id="message-form">

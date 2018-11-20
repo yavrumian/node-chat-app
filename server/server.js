@@ -2,6 +2,7 @@ const path = require('path');
 const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
+const bodyParser = require('body-parser');
 
 const {Users} = require('./utils/users');
 const {generateMessage, generateLocMessage} = require('./utils/message');
@@ -13,11 +14,18 @@ var app = express();
 var server = http.createServer(app);
 var io = socketIO(server);
 var users = new Users();
-
+var params;
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(express.static(publicPath));
 
 io.on('connection', (socket) => {
-	socket.on('join', (params, callback) => {
+
+	socket.on('data', (data) => {
+		params = data
+	})
+	socket.on('join', (callback) => {
+		if(!params) return callback('username and room name are required')
 		var username = users.getUserList(params.room).filter((user) => user === params.name);
 		if(!isRealString(params.name) || !isRealString(params.room)){
 			return callback('Name and room name are required');
@@ -29,7 +37,8 @@ io.on('connection', (socket) => {
 		users.removeUser(socket.id);
 		users.addUser(socket.id, params.name, params.room);
 
-		io.to(params.room).emit('updateUserList', users.getUserList(params.room))
+		io.to(params.room).emit('updateUserList', users.getUserList(params.room));
+		socket.emit('setRoomName', params.room)
 		socket.emit('newMessage', generateMessage('Admin', 'Welcome User'));
 		socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin', `${params.name} has joined`));
 		callback('')
@@ -58,7 +67,6 @@ io.on('connection', (socket) => {
 			io.to(user.room).emit('newMessage', generateMessage('Admin', `${user.name} has left`));
 		}
 	});
-
 });
 
 server.listen(port, () => {
