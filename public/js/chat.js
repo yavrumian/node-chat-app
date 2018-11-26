@@ -1,5 +1,6 @@
 var socket = io();
 
+var currentUser;
 function scrollToBottom() {
 	//Selectors
 	var messages = $('#messages');
@@ -40,9 +41,9 @@ socket.on('updateUserList', function (users) {
 	$('#users').html(ul);
 })
 
-socket.on('setRoomName', function (room) {
-	console.log(room);
-	$('#chat-head').text(room);
+socket.on('setRoomName', function (user) {
+	currentUser = user.name;
+	$('#chat-head').text(user.room);
 });
 
 socket.on('newMessage', function(message) {
@@ -53,14 +54,26 @@ socket.on('newMessage', function(message) {
 		from: message.from,
 		time: formatedTime
 	});
-
+	if(message.from === currentUser){
+		html = $.parseHTML(html);
+		var header = $($(html[1]).children()).children()[0];
+		$(header).css('color', '#0061c5')
+	}else if(message.from === 'Admin'){
+		console.log('asdm mes');
+		html = $.parseHTML(html);
+		var text = $(html[1]).children()[1]
+		$(text).css({
+			'font-style': 'italic',
+			'text-decoration': 'underline'
+		})
+		console.log(text);
+	}
 	$('#messages').append(html)
 	scrollToBottom();
 })
 
 socket.on('newLocMessage', function(message) {
 	var formatedTime = moment(message.createdAt).format('HH:mm');
-
 	var template = $('#loc-message-template').html();
 	var html = Mustache.render(template, {
 		time: formatedTime,

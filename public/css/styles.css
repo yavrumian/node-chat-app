@@ -43,3 +43,6 @@ button,button:hover{border:none;color:#fff;padding:10px}.chat__messages,.chat__s
         text-align: center;
         cursor: pointer;
     } h4{font-weight:600;margin-right:10px}.message__title span{color:#999}@media (max-width:600px){*{font-size:1rem}.chat__sidebar{display:none}.chat__footer{flex-direction:column}.chat__footer form{margin-bottom:10px}.chat__footer button{margin-right:0}}
+    .currentUserMessage{
+        color: red;
+    }
