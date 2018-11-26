@@ -4,21 +4,32 @@
     <title>Chat | ChapApp</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="./css/styles.css">
+    <style>
+    .button__share{
+        color: white;
+        cursor: pointer;
+    }
+    .button__share:hover{
+        background-color: #689db7;
+    }
+    </style>
 </head>
 
 <body class="chat">
     <a class="toggle-button" id="toggle-sidebar">❰</a>
     <div class="chat__sidebar" id="sidebar">
-        <h3>Members</h3>
+        <div>
+            <h3>Members</h3>
+            <a class="button__share"><i class="fas fa-share-square fa-lg"></i></a>
+        </div>
         <div id="users"></div>
     </div>
-
     <div class="chat__main">
         <div class="chat__head">
             <button id="back-button">⬅</button>
             <span id="chat-head"></span>
-
         </div>
         <ul id="messages" class="chat__messages" style="list-style-type:none"></ul>
         <div class="chat__footer">
