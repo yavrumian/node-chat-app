@@ -46,3 +46,6 @@ button,button:hover{border:none;color:#fff;padding:10px}.chat__messages,.chat__s
     .currentUserMessage{
         color: red;
     }
+    body{
+        overflow-x: hidden;
+    }
