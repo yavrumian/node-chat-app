@@ -44,6 +44,7 @@ socket.on('updateUserList', function (users) {
 socket.on('setRoomName', function (user) {
 	currentUser = user.name;
 	$('#chat-head').text(user.room);
+	$('#shareable-link').attr('value', `https://boiling-forest-58781.herokuapp.com/?room=${user.room}`)
 });
 
 socket.on('newMessage', function(message) {
@@ -178,5 +179,6 @@ copy.on('success', function(e){
 				'ui-tooltip': 'custom-black'
 			}
 		});
+		$( ".selector" ).tooltip( "close" );
 	}, 2000)
 });
