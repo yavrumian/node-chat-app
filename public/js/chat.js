@@ -59,14 +59,12 @@ socket.on('newMessage', function(message) {
 		var header = $($(html[1]).children()).children()[0];
 		$(header).css('color', '#0061c5')
 	}else if(message.from === 'Admin'){
-		console.log('asdm mes');
 		html = $.parseHTML(html);
 		var text = $(html[1]).children()[1]
 		$(text).css({
 			'font-style': 'italic',
 			'text-decoration': 'underline'
 		})
-		console.log(text);
 	}
 	$('#messages').append(html)
 	scrollToBottom();
@@ -155,3 +153,30 @@ $('#back-button').click(function(event) {
 	event.preventDefault();
 	window.location.href = '/'
 })
+$('.fa-share-square').click(function () {
+	$('#myPopup').toggle()
+})
+var copy = new ClipboardJS('.fa-copy');
+$('.fa-copy').tooltip({
+	content: 'Copy the text',
+	classes:{
+		'ui-tooltip': 'custom-black'
+	}
+});
+copy.on('success', function(e){
+	console.log('success');
+	$('.fa-copy').tooltip({
+		content: 'Copied!',
+		classes:{
+			'ui-tooltip': 'custom-black'
+		},
+	});
+	setTimeout(function(){
+		$('.fa-copy').tooltip({
+			content: 'Copy the text',
+			classes:{
+				'ui-tooltip': 'custom-black'
+			}
+		});
+	}, 2000)
+});

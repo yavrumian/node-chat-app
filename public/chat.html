@@ -5,15 +5,41 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="./css/jquery-ui.min.css" />
     <link rel="stylesheet" type="text/css" href="./css/styles.css">
     <style>
+
     .button__share{
         color: white;
         cursor: pointer;
+        position: relative;
+        display: inline-block;
     }
-    .button__share:hover{
-        background-color: #689db7;
-    }
+/* Tooltip text */
+.tooltip .tooltiptext {
+    display: none;
+    width: 700%;
+    background-color: #a2a2a3;
+    color: #fff;
+    text-align: center;
+    padding: 5px 2px;
+    top: 150%;
+    right:-50%;
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+.tooltiptext input{
+    background-color: white;
+    width: 85%
+}
+.custom-black{
+    background-color: black;
+    color: white;
+    border-style: none;
+    border-radius:5px
+
+}
     </style>
 </head>
 
@@ -22,13 +48,19 @@
     <div class="chat__sidebar" id="sidebar">
         <div>
             <h3>Members</h3>
-            <a class="button__share"><i class="fas fa-share-square fa-lg"></i></a>
+            <a class="button__share tooltip">
+                <i class="fas fa-share-square fa-lg"></i>
+                <span class="tooltiptext" id="myPopup">
+                    <input id="shareable-link" type="text" value="https://somesite.cm?rroom=adsdf" readonly />
+                    <i class="far fa-copy" data-clipboard-target="#shareable-link" title="Copy the link"></i>
+                </span>
+            </a>
         </div>
         <div id="users"></div>
     </div>
     <div class="chat__main">
         <div class="chat__head">
-            <button id="back-button">⬅</button>
+            <button id="back-button"><i class="fas fa-long-arrow-left"></i></button>
             <span id="chat-head"></span>
         </div>
         <ul id="messages" class="chat__messages" style="list-style-type:none"></ul>
@@ -69,8 +101,12 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/libs/mustache.js"></script>
+    <script src="/js/libs/clipboard.min.js"></script>
     <script src="/js/libs/moment.js"></script>
     <script src="/js/libs/jquery-3.3.1.min.js"></script>
+    <script src="/js/libs/jquery-ui.min.js"></script>
+    <!-- <script src="/js/libs/popper.min.js"></script> -->
+    <!-- <script src="/js/libs/bootstrap.min.js"></script> -->
     <script src="/js/libs/deparam.js"></script>
     <script src="/js/chat.js"></script>
 </body>
