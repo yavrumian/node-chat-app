@@ -76,5 +76,19 @@ button,button:hover{border:none;color:#fff;padding:10px}.chat__messages,.chat__s
     color: white;
     border-style: none;
     border-radius:5px
+}
+.italic{
+    font-style: italic;
+    text-decoration: underline;
+}
+.form-field > p{
+    margin: 10px 0 0 0 ;
 
+}
+hr{
+    height: 3px;
+    color: black;
+    background-color: black;
+    border: none;
+    margin: 8px;
 }

@@ -42,9 +42,11 @@ socket.on('updateUserList', function (users) {
 })
 
 socket.on('setRoomName', function (user) {
+	const encodedRoom = encodeURIComponent(btoa(user.room));
+	const encodedName = encodeURIComponent(btoa(user.name))
 	currentUser = user.name;
 	$('#chat-head').text(user.room);
-	$('#shareable-link').attr('value', `https://boiling-forest-58781.herokuapp.com/?room=${user.room}`)
+	$('#shareable-link').attr('value', `https://boiling-forest-58781.herokuapp.com/invite.html?room=${encodedRoom}&name=${encodedName}`)
 });
 
 socket.on('newMessage', function(message) {
@@ -181,4 +183,13 @@ copy.on('success', function(e){
 		});
 		$( ".selector" ).tooltip( "close" );
 	}, 2000)
+});
+$(document).mouseup(function(e) {
+    var container = $('.button__share');
+
+    // if the target of the click isn't the container nor a descendant of the container
+    if (!container.is(e.target) && container.has(e.target).length === 0)
+    {
+        $('#myPopup').toggle()
+    }
 });

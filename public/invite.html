@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta  charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Join | ChatApp</title>
+    <link rel="stylesheet" type="text/css" href="./css/styles.css">
+  </head>
+
+  <body class="centered-form">
+      <div class="centered-form__form">
+        <form action="/chat.html">
+          <div class="form-field">
+              <h3>Join a Chat</h3>
+              <p>Your friend <span id="user-name" class="italic"></span> invited you to join room <span id="room-name" class="italic"></span> <hr> Enter username to continue</p>
+          </div>
+          <div class="form-field">
+              <label>Username</label>
+              <input type="text" name="name" autofocus  autocomplete="off" />
+          </div>
+          <!-- <div class="g-recaptcha" data-sitekey="6LeDf3sUAAAAAEKBWa6wPcazowyQmsXCNQBE0jJO"></div> -->
+          <div class="form-field">
+            <button>Join!</button>
+          </div>
+        </form>
+      </div>
+      <!-- <script>
+    grecaptcha.ready(function() {
+        grecaptcha.execute('6LeDf3sUAAAAAEKBWa6wPcazowyQmsXCNQBE0jJO', {action: 'action_name'})
+        .then(function(token) {
+        // Verify the token on the server.
+        });
+    });
+      </script> -->
+      <script src="/socket.io/socket.io.js"></script>
+      <script src="/js/libs/jquery-3.3.1.min.js"></script>
+      <script src="/js/libs/deparam.js"></script>
+      <script src='/js/invite.js'></script>
+  </body>
+</html>
