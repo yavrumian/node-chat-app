@@ -92,3 +92,8 @@ hr{
     border: none;
     margin: 8px;
 }
+#err-message{
+    color: red;
+    font-size:85%;
+    text-align:center;
+}

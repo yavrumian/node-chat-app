@@ -1,14 +1,22 @@
 var socket = io.connect();
 const room = atob(decodeURIComponent($.deparam().room));
 const name = atob(decodeURIComponent($.deparam().name));
+function isRealString (str){
+    return typeof str === 'string' && str.trim().length > 0;
+}
+
 $('#room-name').text(room);
 $('#user-name').text(name);
 $('button').click(function (event) {
         event.preventDefault();
-        socket.emit('data', {
-            room,
-            name: $('input[name=name]').val()
-        })
-        window.location.href = '/chat.html'
-
+        if(isRealString(room) && isRealString($('input[name=name]').val())){
+            console.log('heey');
+            socket.emit('data', {
+                room,
+                name: $('input[name=name]').val()
+            })
+            // window.location.href = '/chat.html'
+        }else{
+            $('#err-message').text('Username is required*');
+        }
 })
