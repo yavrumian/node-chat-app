@@ -46,7 +46,7 @@ socket.on('setRoomName', function (user) {
 	const encodedName = encodeURIComponent(btoa(user.name))
 	currentUser = user.name;
 	$('#chat-head').text(user.room);
-	$('#shareable-link').attr('value', `https://boiling-forest-58781.herokuapp.com/invite.html?room=${encodedRoom}&name=${encodedName}`)
+	$('#shareable-link').attr('value', `${window.location.hostname}:${window.location.port}/invite.html?room=${encodedRoom}&name=${encodedName}`)
 });
 
 socket.on('newMessage', function(message) {

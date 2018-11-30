@@ -15,7 +15,7 @@ $('button').click(function (event) {
                 room,
                 name: $('input[name=name]').val()
             })
-            // window.location.href = '/chat.html'
+            window.location.href = '/chat.html'
         }else{
             $('#err-message').text('Username is required*');
         }
