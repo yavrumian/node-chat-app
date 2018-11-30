@@ -195,3 +195,5 @@ $(document).mouseup(function(e) {
 		$( ".fa-copy" ).tooltip( "close" );
     }
 });
+$('.message__body').emoticonize();
+new EmojiPicker().discover()

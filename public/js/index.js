@@ -39,5 +39,7 @@ $('.random-button').click(function(event){
 })
 $('.random-button').mouseup(function(event){
     event.preventDefault();
-    $('.random-button').tooltip('close')
+    setTimeout(function(){
+        $('.random-button').tooltip('close')
+    }, 1500)
 })
