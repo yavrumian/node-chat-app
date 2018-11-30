@@ -37,3 +37,7 @@ $('.random-button').click(function(event){
     event.preventDefault();
     $('.room-field').val(genRandom(10));
 })
+$('.random-button').mouseup(function(event){
+    event.preventDefault();
+    $('.random-button').tooltip('close')
+})
