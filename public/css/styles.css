@@ -97,3 +97,14 @@ hr{
     font-size:85%;
     text-align:center;
 }
+.room-field{
+    width: 80%;
+}
+.random-button{
+    width: 20%
+}
+.custom-gen{
+    background-color: black;
+    color: white;
+    font-size: 5rem
+}

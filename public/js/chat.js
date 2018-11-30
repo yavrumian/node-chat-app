@@ -16,7 +16,9 @@ function scrollToBottom() {
 		messages.scrollTop(scrollHeight);
 	}
 }
-
+$(document).ready(function(){
+	$('#myPopup').toggle();
+})
 $('.chat__messages').css('padding-top', $('.chat__head').height())
 
 socket.on('connect', function() {
@@ -172,7 +174,7 @@ copy.on('success', function(e){
 		content: 'Copied!',
 		classes:{
 			'ui-tooltip': 'custom-black'
-		},
+		}
 	});
 	setTimeout(function(){
 		$('.fa-copy').tooltip({
@@ -181,15 +183,15 @@ copy.on('success', function(e){
 				'ui-tooltip': 'custom-black'
 			}
 		});
-		$( ".selector" ).tooltip( "close" );
+		$( ".fa-copy" ).tooltip( "close" );
 	}, 2000)
 });
 $(document).mouseup(function(e) {
     var container = $('.button__share');
 
-    // if the target of the click isn't the container nor a descendant of the container
     if (!container.is(e.target) && container.has(e.target).length === 0)
     {
-        $('#myPopup').toggle()
+        $('#myPopup').toggle();
+		$( ".fa-copy" ).tooltip( "close" );
     }
 });
