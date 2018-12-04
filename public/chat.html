@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="./css/jquery-ui.min.css" />
     <link rel="stylesheet" type="text/css" href="./css/styles.css">
+    <style>
+        .fa-sign-out-alt{
+            transform: matrix(-1, 0, 0, 1, 0, 0);
+        }
+    </style>
 </head>
 
 <body class="chat">
@@ -26,7 +31,7 @@
     </div>
     <div class="chat__main">
         <div class="chat__head">
-            <button id="back-button"><i class="fas fa-sign-out-alt"></i></i></button>
+            <button id="back-button"><i class="fas fa-sign-out-alt fa-lg"></i></i></button>
             <span id="chat-head"></span>
         </div>
         <ul id="messages" class="chat__messages" style="list-style-type:none"></ul>

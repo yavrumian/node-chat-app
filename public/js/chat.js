@@ -17,7 +17,7 @@ function scrollToBottom() {
 	}
 }
 $(document).ready(function(){
-	$('#myPopup').toggle();
+	$('#myPopup').hide();
 })
 $('.chat__messages').css('padding-top', $('.chat__head').height())
 
@@ -48,7 +48,7 @@ socket.on('setRoomName', function (user) {
 	const encodedName = encodeURIComponent(btoa(user.name))
 	currentUser = user.name;
 	$('#chat-head').text(user.room);
-	$('#shareable-link').attr('value', `${window.location.hostname}:${window.location.port}/invite.html?room=${encodedRoom}&name=${encodedName}`)
+	$('#shareable-link').attr('value', `${window.location.hostname}/invite.html?room=${encodedRoom}&name=${encodedName}`)
 });
 
 socket.on('newMessage', function(message) {

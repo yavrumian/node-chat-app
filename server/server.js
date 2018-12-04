@@ -4,6 +4,7 @@ const express = require('express');
 const socketIO = require('socket.io');
 const bodyParser = require('body-parser');
 
+const {checkRoom} = require('./utils/roomCheck')
 const {Users} = require('./utils/users');
 const {generateMessage, generateLocMessage} = require('./utils/message');
 const {isRealString} = require('./utils/validation');
@@ -15,13 +16,12 @@ var server = http.createServer(app);
 var io = socketIO(server);
 var users = new Users();
 var params;
-var activeRooms = {}
+var activeRooms = []
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(publicPath));
 
 io.on('connection', (socket) => {
-	// console.log(findRooms());
 	socket.on('data', (data) => {
 		params = data
 	})
@@ -35,6 +35,16 @@ io.on('connection', (socket) => {
 			return callback('that username is already in use, please take another one');
 		}
 		socket.join(params.room);
+		var roomIndex = checkRoom(activeRooms, params.room);
+		if(!roomIndex){
+			activeRooms.push({
+				name: params.room,
+				count: 1,
+				isSecret: params.isSecret
+			})
+		}else{
+			activeRooms[roomIndex].count += 1;
+		}
 		users.removeUser(socket.id);
 		users.addUser(socket.id, params.name, params.room);
 
@@ -65,10 +75,17 @@ io.on('connection', (socket) => {
 
 	socket.on('disconnect', () => {
 		var user = users.removeUser(socket.id);
-
 		if(user) {
 			io.to(user.room).emit('updateUserList', users.getUserList(user.room));
 			io.to(user.room).emit('newMessage', generateMessage('Admin', `${user.name} has left`));
+			var roomIndex = checkRoom(activeRooms, user.room);
+			if(activeRooms[roomIndex]){
+				if(activeRooms[roomIndex].count <=1){
+					activeRooms.splice(roomIndex, 1)
+				}else {
+					activeRooms[roomIndex].count -= 1;
+				}
+			}
 		}
 	});
 });

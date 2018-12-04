@@ -1,5 +1,5 @@
 var socket = io.connect();
-var secret = false;
+var isSecret = false;
 
 function isRealString (str){
     return typeof str === 'string' && str.trim().length > 0;
@@ -26,11 +26,12 @@ $('#join-button').click(function (event) {
         if(isRealString($('input[name=room]').val()) && isRealString($('input[name=name]').val())){
             socket.emit('data', {
                 room: $('input[name=room]').val().toLowerCase(),
-                name: $('input[name=name]').val()
+                name: $('input[name=name]').val(),
+                isSecret
             })
             window.location.href = '/chat.html'
         }else {
-                $('#err-message').text('Username and room name are required')
+                $('#err-message').text('Username and room name are required*')
         }
 })
 
@@ -45,17 +46,17 @@ $('.random-button').mouseup(function(event){
     }, 1500)
 })
 $('.checkbox').click(function(){
-    if(secret === false) {
+    if(isSecret === false) {
         $(this).css({
             'background-color': '#265f82'
         });
         $('.fa-check').css('visibility', 'visible');
-        secret = true;
+        isSecret = true;
     }else{
         $(this).css({
             'background-color': 'white'
         });
         $('.fa-check').css('visibility', 'hidden');
-        secret = false;
+        isSecret = false;
     }
 })
