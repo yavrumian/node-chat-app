@@ -1,9 +1,17 @@
 var socket = io.connect();
 var isSecret = false;
 
+socket.on('updateRoomList', (activeRooms) => {
+    console.log(activeRooms);
+})
+
 function isRealString (str){
     return typeof str === 'string' && str.trim().length > 0;
 }
+
+$(document).ready(function(){
+    socket.emit('refreshRoomList', {})
+})
 
 function genRandom(len) {
   var text = "";

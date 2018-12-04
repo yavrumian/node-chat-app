@@ -73,6 +73,10 @@ io.on('connection', (socket) => {
 		}
 	})
 
+	socket.on('refreshRoomList', () => {
+		socket.emit('updateRoomList', activeRooms.filter((room) => room.isSecret == false))
+	})
+
 	socket.on('disconnect', () => {
 		var user = users.removeUser(socket.id);
 		if(user) {
