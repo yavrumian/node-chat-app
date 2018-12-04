@@ -1,4 +1,6 @@
 var socket = io.connect();
+var secret = false;
+
 function isRealString (str){
     return typeof str === 'string' && str.trim().length > 0;
 }
@@ -6,7 +8,6 @@ function isRealString (str){
 function genRandom(len) {
   var text = "";
   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz0123456789";
-
   for (var i = 0; i < len; i++)
     text += possible.charAt(Math.floor(Math.random() * possible.length));
 
@@ -42,4 +43,19 @@ $('.random-button').mouseup(function(event){
     setTimeout(function(){
         $('.random-button').tooltip('close')
     }, 1500)
+})
+$('.checkbox').click(function(){
+    if(secret === false) {
+        $(this).css({
+            'background-color': '#265f82'
+        });
+        $('.fa-check').css('visibility', 'visible');
+        secret = true;
+    }else{
+        $(this).css({
+            'background-color': 'white'
+        });
+        $('.fa-check').css('visibility', 'hidden');
+        secret = false;
+    }
 })

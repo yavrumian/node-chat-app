@@ -15,21 +15,11 @@ var server = http.createServer(app);
 var io = socketIO(server);
 var users = new Users();
 var params;
+var activeRooms = {}
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(publicPath));
-function findRooms() {
-    var availableRooms = [];
-    var rooms = io.sockets.adapter.rooms;
-    if (rooms) {
-        for (var room in rooms) {
-            if (!rooms[room].hasOwnProperty(room)) {
-                availableRooms.push(room);
-            }
-        }
-    }
-    return availableRooms;
-}
+
 io.on('connection', (socket) => {
 	// console.log(findRooms());
 	socket.on('data', (data) => {

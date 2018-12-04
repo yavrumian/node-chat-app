@@ -7,6 +7,22 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="./css/jquery-ui.min.css" />
     <link rel="stylesheet" type="text/css" href="./css/styles.css">
+    <style>
+    .checkbox{
+        display: inline-block;
+        color: white;
+        background-color: white;
+        float: right;
+        width: 12%;
+        border: 3px solid #255f82;
+    }
+    .fa-check{
+        visibility: hidden;
+    }
+    .container{
+        display: inline;
+    }
+    </style>
   </head>
 
   <body class="centered-form">
@@ -24,20 +40,18 @@
               <label>Room name:</label>
               <input class="room-field" type="text" name="room" autocomplete="off" ><button type="button" title="" class="random-button"> <i class="fas fa-random"></i></button>
           </div>
+          <div class="form-field">
+              <label class="container">Make room secret</label>
+              <div class="checkbox">
+                  <i class="fas fa-check"></i>
+              </div>
+          </div>
           <div class="g-recaptcha" data-sitekey="6LeDf3sUAAAAAEKBWa6wPcazowyQmsXCNQBE0jJO"></div>
           <div class="form-field">
             <button id="join-button">Join!</button>
           </div>
         </form>
       </div>
-      <!-- <script>
-    grecaptcha.ready(function() {
-        grecaptcha.execute('6LeDf3sUAAAAAEKBWa6wPcazowyQmsXCNQBE0jJO', {action: 'action_name'})
-        .then(function(token) {
-        // Verify the token on the server.
-        });
-    });
-      </script> -->
       <script src="/socket.io/socket.io.js"></script>
       <script src="/js/libs/jquery-3.3.1.min.js"></script>
       <script src="/js/libs/jquery-ui.min.js"></script>
