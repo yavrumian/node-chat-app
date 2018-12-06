@@ -96,10 +96,7 @@ $('#drop-btn').click(function(e){
     $('#drop').toggle('show')
 })
 $(document).click(function(e) {
-    var container = $('#drop');
-    var btn = $('#drop-btn')
-
-    if (!container.is(e.target) && !btn.is(e.target) && container.has(e.target).length === 0)
+    if (!$('#drop').is(e.target) && !$('#drop-btn').is(e.target) && !$('#refresh').is(e.target) && container.has(e.target).length === 0)
     {
         $('#drop').hide();
     }
@@ -115,7 +112,17 @@ $('.room-field').focusout(function(){
         $('.checkbox').removeClass('disabled');
     }
 })
+var deg = 0;
 $('#refresh').click(function(e){
+    deg += 180;
     e.preventDefault()
     socket.emit('refreshRoomList', {});
+    $('i', this).css({
+        '-webkit-transform' : 'rotate(' + deg + 'deg)',
+        '-moz-transform' : 'rotate(' + deg + 'deg)',
+        '-ms-transform' : 'rotate(' + deg + 'deg)',
+        '-o-transform' : 'rotate(' + deg + 'deg)',
+        'transform' : 'rotate(' + deg + 'deg)'
+    })
+    $('i', this).css({})
 })
