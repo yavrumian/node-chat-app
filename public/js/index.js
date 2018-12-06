@@ -2,6 +2,7 @@ var socket = io.connect();
 var isSecret = false;
 var actRooms;
 socket.on('updateRoomList', (activeRooms) => {
+    $('#drop').html('');
     actRooms = activeRooms;
     if(activeRooms[0]){
         for(var x = 0; x < activeRooms.length; x++){
@@ -113,4 +114,8 @@ $('.room-field').focusout(function(){
         $('#drop-btn').removeClass('selected').text('Choose from active rooms').append($('<i class="fas fa-sort-down">'));
         $('.checkbox').removeClass('disabled');
     }
+})
+$('#refresh').click(function(e){
+    e.preventDefault()
+    socket.emit('refreshRoomList', {});
 })

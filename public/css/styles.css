@@ -103,3 +103,81 @@ hr{
 .random-button{
     width: 20%
 }
+.checkbox{
+    display: inline-block;
+    color: white;
+    background-color: white;
+    float: right;
+    width: 11%;
+    border: 2px solid #255f82;
+}
+.fa-check{
+    visibility: hidden;
+}
+.container{
+    display: inline;
+}
+.select{
+    width: 80%;
+    font-size: 0.8rem;
+    border-right: 1px solid #e6ebee;
+}
+.select:hover{
+    width: 80%;
+    font-size: 0.8rem;
+    border-right: 1px solid #e6ebee;
+}
+.drop-content{
+    display: none;
+position: absolute;
+background-color: #f1f1f1;
+min-width: 160px;
+box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+z-index: 1;
+max-width: 20%;
+min-height: 5vh;
+max-height: 20vh;
+overflow: auto;
+}
+.drop-content a{
+    color: black;
+padding: 12px 16px;
+text-decoration: none;
+display: block;
+}
+.drop-content a:hover{
+    background-color: #ddd
+}
+.show{
+    display: block !important;
+}
+.drop-content span{
+    font-size: 0.8rem;
+    font-style: italic;
+    float: right;
+}
+.selected{
+
+    background-color: white;
+    border: 2.5px solid #255f82;
+    color: black;
+}
+.selected:hover{
+    background-color: #255f82;
+    border: 2.5px solid #255f82;
+    color: white;
+}
+.selected i{
+    margin-left: 5px;
+}
+.disabled{
+    background-color: #5d5d5c;
+opacity: 0.5;
+}
+.refresh-btn{
+    font-size: 0.8rem;
+    width: 20%
+}
+.fa-sign-out-alt{
+    transform: matrix(-1, 0, 0, 1, 0, 0);
+}
