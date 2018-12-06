@@ -1,12 +1,32 @@
 var socket = io.connect();
 var isSecret = false;
-
+var actRooms;
 socket.on('updateRoomList', (activeRooms) => {
-    console.log(activeRooms);
+    actRooms = activeRooms;
+    if(activeRooms[0]){
+        for(var x = 0; x < activeRooms.length; x++){
+            var a = $('<a></a>');
+            a.append($('<b></b>').text(activeRooms[x].name));
+            a.append($('<span></span>').text(activeRooms[x].count));
+            $("#drop").append(a)
+        }
+        $('#drop a').click(function(e){
+            e.preventDefault();
+            $('#drop-btn').addClass('selected').text($("b", this).text()).append($('<i class="fas fa-sort-down">'));
+            $('.room-field').val($("b", this).text());
+            $('.checkbox').addClass('disabled')
+        })
+    }else{
+        $('#drop').append($('<span></span>').text('Sorry. There\'re no any active rooms'))
+    }
 })
 
 function isRealString (str){
     return typeof str === 'string' && str.trim().length > 0;
+}
+
+function customTrim(x) {
+    return x.replace(/ +(?= )/g,'');
 }
 
 $(document).ready(function(){
@@ -33,8 +53,8 @@ $('#join-button').click(function (event) {
         event.preventDefault();
         if(isRealString($('input[name=room]').val()) && isRealString($('input[name=name]').val())){
             socket.emit('data', {
-                room: $('input[name=room]').val().toLowerCase(),
-                name: $('input[name=name]').val(),
+                room: customTrim($('input[name=room]').val().toLowerCase()),
+                name: customTrim($('input[name=name]').val().trim()),
                 isSecret
             })
             window.location.href = '/chat.html'
@@ -54,17 +74,43 @@ $('.random-button').mouseup(function(event){
     }, 1500)
 })
 $('.checkbox').click(function(){
-    if(isSecret === false) {
+    if(isSecret === false && !$(this).hasClass('disabled')) {
         $(this).css({
             'background-color': '#265f82'
         });
         $('.fa-check').css('visibility', 'visible');
         isSecret = true;
+    }else if ($(this).hasClass('disabled')) {
+
     }else{
         $(this).css({
             'background-color': 'white'
         });
         $('.fa-check').css('visibility', 'hidden');
         isSecret = false;
+    }
+})
+$('#drop-btn').click(function(e){
+    e.preventDefault();
+    $('#drop').toggle('show')
+})
+$(document).click(function(e) {
+    var container = $('#drop');
+    var btn = $('#drop-btn')
+
+    if (!container.is(e.target) && !btn.is(e.target) && container.has(e.target).length === 0)
+    {
+        $('#drop').hide();
+    }
+});
+$('.room-field').focusout(function(){
+    var exist = actRooms.some(function(room){
+        return customTrim($('.room-field').val().toLowerCase()) === room.name;
+    })
+    if(exist){
+        $('.checkbox').addClass('disabled');
+    }else{
+        $('#drop-btn').removeClass('selected').text('Choose from active rooms').append($('<i class="fas fa-sort-down">'));
+        $('.checkbox').removeClass('disabled');
     }
 })
