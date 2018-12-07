@@ -66,7 +66,7 @@ $('#join-button').click(function (event) {
         event.preventDefault();
         if(isRealString($('input[name=room]').val()) && isRealString($('input[name=name]').val())){
             Cookies.set('room', customTrim($('input[name=room]').val().toLowerCase()), {expires: 2});
-            Cookies.set('name', customTrim($('input[name=name]').val().trim()) {expires: 2});
+            Cookies.set('name', customTrim($('input[name=name]').val().trim()), {expires: 2});
             socket.emit('data', {
                 room: customTrim($('input[name=room]').val().toLowerCase()),
                 name: customTrim($('input[name=name]').val().trim()),
