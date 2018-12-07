@@ -45,8 +45,8 @@ socket.on('updateUserList', function (users) {
 })
 
 socket.on('setRoomName', function (user) {
-	const encodedRoom = encodeURIComponent(btoa(user.room));
-	const encodedName = encodeURIComponent(btoa(user.name))
+	var encodedRoom = encodeURIComponent(btoa(user.room));
+	var encodedName = encodeURIComponent(btoa(user.name))
 	currentUser = user.name;
 	$('#chat-head').text(user.room);
 	$('#shareable-link').attr('value', `${window.location.hostname}/invite.html?room=${encodedRoom}&name=${encodedName}`)
