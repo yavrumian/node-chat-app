@@ -10,7 +10,6 @@ $('#user-name').text(name);
 $('button').click(function (event) {
         event.preventDefault();
         if(isRealString(room) && isRealString($('input[name=name]').val())){
-            console.log('heey');
             socket.emit('data', {
                 room,
                 name: $('input[name=name]').val()

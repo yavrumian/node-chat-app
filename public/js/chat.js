@@ -24,7 +24,8 @@ $('.chat__messages').css('padding-top', $('.chat__head').height())
 socket.on('connect', function() {
 	socket.emit('join',function(err) {
 		if(err) {
-			alert(err)
+			alert(err);
+			Cookies.remove('room', {path: '/'});
 			window.location.href = '/'
 		}
 	});
@@ -156,7 +157,7 @@ $('#message-input').on('focus', function () {
 })
 $('#back-button').click(function(event) {
 	event.preventDefault();
-	Cookies.remove('room', {path: '/'})
+	Cookies.remove('room', {path: '/'});
 	window.location.href = '/'
 })
 $('.fa-share-square').click(function () {
