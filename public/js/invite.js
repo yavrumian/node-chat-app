@@ -5,6 +5,8 @@ function isRealString (str){
     return typeof str === 'string' && str.trim().length > 0;
 }
 
+alert(btoa('heey'))
+
 $('#room-name').text(room);
 $('#user-name').text(name);
 $('button').click(function (event) {
