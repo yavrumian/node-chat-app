@@ -1,6 +1,17 @@
 var socket = io.connect();
 var isSecret = false;
 var actRooms;
+
+if(Cookies.get('room') && Cookies.get('name')){
+    socket.emit('data', {
+        room: Cookies.get('room'),
+        name: Cookies.get('name')
+    })
+    window.location.href = '/chat.html'
+}else if(!Cookies.get('room') && Cookies.get('name')){
+    $('input[name=name]').val(Cookies.get('name'))
+}
+
 socket.on('updateRoomList', (activeRooms) => {
     $('#drop').html('');
     actRooms = activeRooms;
@@ -14,6 +25,7 @@ socket.on('updateRoomList', (activeRooms) => {
         $('#drop a').click(function(e){
             e.preventDefault();
             $('#drop-btn').addClass('selected').text($("b", this).text()).append($('<i class="fas fa-sort-down">'));
+            $('.refresh-btn').css('border' , '2.5px solid #265f82')
             $('.room-field').val($("b", this).text());
             $('.checkbox').addClass('disabled')
         })
@@ -53,6 +65,8 @@ $('.random-button').tooltip({
 $('#join-button').click(function (event) {
         event.preventDefault();
         if(isRealString($('input[name=room]').val()) && isRealString($('input[name=name]').val())){
+            Cookies.set('room', customTrim($('input[name=room]').val().toLowerCase()));
+            Cookies.set('name', customTrim($('input[name=name]').val().trim()));
             socket.emit('data', {
                 room: customTrim($('input[name=room]').val().toLowerCase()),
                 name: customTrim($('input[name=name]').val().trim()),
@@ -96,7 +110,7 @@ $('#drop-btn').click(function(e){
     $('#drop').toggle('show')
 })
 $(document).click(function(e) {
-    if (!$('#drop').is(e.target) && !$('#drop-btn').is(e.target) && !$('#refresh').is(e.target) && container.has(e.target).length === 0)
+    if (!$('#drop').is(e.target) && !$('#drop-btn').is(e.target) && !$('#refresh').is(e.target) && $('#drop').has(e.target).length === 0)
     {
         $('#drop').hide();
     }
@@ -108,6 +122,7 @@ $('.room-field').focusout(function(){
     if(exist){
         $('.checkbox').addClass('disabled');
     }else{
+            $('.refresh-btn').css('border' , '2.5px solid #265f82')
         $('#drop-btn').removeClass('selected').text('Choose from active rooms').append($('<i class="fas fa-sort-down">'));
         $('.checkbox').removeClass('disabled');
     }
@@ -124,5 +139,4 @@ $('#refresh').click(function(e){
         '-o-transform' : 'rotate(' + deg + 'deg)',
         'transform' : 'rotate(' + deg + 'deg)'
     })
-    $('i', this).css({})
 })

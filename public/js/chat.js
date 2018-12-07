@@ -156,6 +156,7 @@ $('#message-input').on('focus', function () {
 })
 $('#back-button').click(function(event) {
 	event.preventDefault();
+	Cookies.remove('room', {path: '/'})
 	window.location.href = '/'
 })
 $('.fa-share-square').click(function () {
@@ -191,7 +192,7 @@ $(document).mouseup(function(e) {
 
     if (!container.is(e.target) && container.has(e.target).length === 0)
     {
-        $('#myPopup').toggle();
+        $('#myPopup').hide();
 		$( ".fa-copy" ).tooltip( "close" );
     }
 });
