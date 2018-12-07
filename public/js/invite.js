@@ -1,5 +1,8 @@
 var socket = io.connect();
-alert(btoa('heey'))
+var x = btoa('heey')
+alert(atob(x));
+ alert(decodeURIComponent($.deparam().room))
+
 // const room = atob(decodeURIComponent($.deparam().room));
 // const name = atob(decodeURIComponent($.deparam().name));
 function isRealString (str){
