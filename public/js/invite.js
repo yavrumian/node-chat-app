@@ -1,7 +1,7 @@
 var socket = io.connect();
 alert(btoa('heey'))
-const room = atob(decodeURIComponent($.deparam().room));
-const name = atob(decodeURIComponent($.deparam().name));
+// const room = atob(decodeURIComponent($.deparam().room));
+// const name = atob(decodeURIComponent($.deparam().name));
 function isRealString (str){
     return typeof str === 'string' && str.trim().length > 0;
 }
