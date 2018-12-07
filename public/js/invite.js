@@ -1,11 +1,12 @@
 var socket = io.connect();
+alert(btoa('heey'))
 const room = atob(decodeURIComponent($.deparam().room));
 const name = atob(decodeURIComponent($.deparam().name));
 function isRealString (str){
     return typeof str === 'string' && str.trim().length > 0;
 }
 
-alert(btoa('heey'))
+
 
 $('#room-name').text(room);
 $('#user-name').text(name);
