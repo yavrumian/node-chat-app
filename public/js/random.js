@@ -12,6 +12,6 @@ $('button').click(function (event) {
             })
             window.location.href = '/chat.html'
         }else{
-            $('#err-message').text('Username is required*');
+            $('#message').css('color', 'red').text('Username is required*');
         }
 })

@@ -1,5 +1,5 @@
 var socket = io();
-
+var backPath = '';
 var currentUser;
 function scrollToBottom() {
 	//Selectors
@@ -22,10 +22,16 @@ $(document).ready(function(){
 $('.chat__messages').css('padding-top', $('.chat__head').height())
 
 socket.on('connect', function() {
-	socket.emit('join',function(err) {
+	socket.emit('join',function(err, isRandom, isMatch) {
 		if(err) {
 			Cookies.remove('room', {path: '/'});
 			window.location.href = '/'
+		}
+		if(isRandom){
+			backPath = 'random.html'
+		}
+		if(!isMatch){
+			$('#loader').addClass('loader-show');
 		}
 	});
 });
@@ -43,6 +49,10 @@ socket.on('updateUserList', function (users) {
 	$('#users').html(ul);
 })
 
+socket.on('match', function(){
+	$('#loader').removeClass('loader-show')
+})
+
 socket.on('setRoomName', function (user) {
 	var encodedRoom = encodeURIComponent(btoa(user.room));
 	var encodedName = encodeURIComponent(btoa(user.name))
@@ -51,8 +61,7 @@ socket.on('setRoomName', function (user) {
 	$('#shareable-link').attr('value', window.location.hostname + '/invite.html?room=' + encodedRoom +  '&name=' + encodedName)
 });
 
-socket.on('newMessage', function(message) {
-	console.log(message);
+socket.on('newMessage', function(message, logout) {
 	var formatedTime = moment(message.createdAt).format('HH:mm');
 	var template = $('#message-template').html();
 	var html = Mustache.render(template, {
@@ -65,6 +74,9 @@ socket.on('newMessage', function(message) {
 		var header = $($(html[1]).children()).children()[0];
 		$(header).css('color', '#0061c5')
 	}else if(message.from === 'Admin'){
+		if(backPath && logout){
+			window.location.href = '/random.html'
+		}
 		html = $.parseHTML(html);
 		var text = $(html[1]).children()[1]
 		$(text).css({
@@ -132,6 +144,8 @@ if($(window).width() <= 720){
 	toggle.text('❰');
 }
 
+
+
 toggle.on('click', function () {
 	if($('#message-input').is(':focus')) {
 
@@ -158,7 +172,7 @@ $('#message-input').on('focus', function () {
 $('#back-button').click(function(event) {
 	event.preventDefault();
 	Cookies.remove('room', {path: '/'});
-	window.location.href = '/'
+	window.location.href = '/' + backPath
 })
 $('.fa-share-square').click(function () {
 	$('#myPopup').toggle()

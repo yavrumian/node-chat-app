@@ -7,6 +7,34 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="./css/jquery-ui.min.css" />
     <link rel="stylesheet" type="text/css" href="./css/styles.css">
+    <style>
+        .loader{
+            width: 50%;
+            height: 40vh;
+            background-color: white;
+            text-align: center;
+            border-radius: 40px;
+        }
+        .loader img{
+            width: 50%;
+            margin-top: 3vh
+        }
+        .loader p{
+            font-size:1.5rem;
+        }
+        .loader-bg{
+            position: absolute;
+            display: none;
+            background: linear-gradient(325deg,rgba(39,107,130,1) 0,rgba(49,84,129,1) 100%);
+            width:100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+        }
+        .loader-show{
+            display: flex;
+        }
+    </style>
 </head>
 
 <body class="chat">
@@ -64,7 +92,12 @@
 			</div>
 		</li>
 	</script>
-
+    <div class="loader-bg" id="loader">
+        <div class="loader">
+            <img alt="Loading..." src="/img/dots.gif" />
+            <p>Waiting for match...</p>
+        </div>
+    </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/libs/mustache.js"></script>
     <script src="/js/libs/clipboard.min.js"></script>

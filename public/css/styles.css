@@ -92,10 +92,13 @@ hr{
     border: none;
     margin: 8px;
 }
-#err-message{
-    color: red;
-    font-size:85%;
+#message{
+    font-size:80%;
     text-align:center;
+    font-style: italic;
+}
+#message a{
+    font-size: inherit
 }
 .room-field{
     width: 80%;

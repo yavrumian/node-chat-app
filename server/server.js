@@ -18,6 +18,7 @@ var users = new Users();
 var params;
 var activeRooms = [];
 var queue = [];
+var peer;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(publicPath));
@@ -35,8 +36,9 @@ io.on('connection', (socket) => {
 			}
 			if(queue.length === 0){
 				queue.push({socket, name: params.name});
+				callback('', true, false)
 			}else{
-				var peer = queue.pop();
+				peer = queue.pop();
 				var room = `${peer.name} & ${params.name}`;
 				users.removeUser(socket.id);
 				users.removeUser(peer.socket.id);
@@ -44,6 +46,7 @@ io.on('connection', (socket) => {
 				users.addUser(peer.socket.id, peer.name, room);
 				socket.join(room);
 				peer.socket.join(room);
+				peer.socket.emit('match');
 				socket.emit('setRoomName', {
 					room,
 					name: params.name
@@ -52,10 +55,10 @@ io.on('connection', (socket) => {
 					room,
 					name: peer.name
 				})
+				callback('', true, true)
 			}
 
 		}else{
-			if(!params) return callback('username and room name are required')
 			var username = users.getUserList(params.room).filter((user) => user === params.name);
 			if(!isRealString(params.name) || !isRealString(params.room)){
 				return callback('Name and room name are required');
@@ -111,7 +114,7 @@ io.on('connection', (socket) => {
 		var user = users.removeUser(socket.id);
 		if(user) {
 			io.to(user.room).emit('updateUserList', users.getUserList(user.room));
-			io.to(user.room).emit('newMessage', generateMessage('Admin', `${user.name} has left`));
+			io.to(user.room).emit('newMessage', generateMessage('Admin', `${user.name} has left`), true);
 			var roomIndex = checkRoom(activeRooms, user.room);
 			if(activeRooms[roomIndex]){
 				if(activeRooms[roomIndex].count <=1){

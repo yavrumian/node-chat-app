@@ -74,7 +74,7 @@ $('#join-button').click(function (event) {
             })
             window.location.href = '/chat.html'
         }else {
-                $('#err-message').text('Username and room name are required*')
+                $('#message').css('color', 'red').text('Username and room name are required*')
         }
 })
 
@@ -123,7 +123,7 @@ $('.room-field').focusout(function(){
         $('.checkbox').addClass('disabled');
     }else{
             $('.refresh-btn').css('border' , '2.5px solid #265f82')
-        $('#drop-btn').removeClass('selected').text('Choose from active rooms').append($('<i class="fas fa-sort-down">'));
+        $('#drop-btn').removeClass('selected').text('active rooms').append($('<i class="fas fa-sort-down">'));
         $('.checkbox').removeClass('disabled');
     }
 })
