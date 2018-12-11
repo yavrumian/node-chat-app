@@ -30,7 +30,7 @@ socket.on('connect', function() {
 		if(isRandom){
 			backPath = 'random.html'
 		}
-		if(!isMatch){
+		if(!isMatch && isRandom){
 			$('#loader').addClass('loader-show');
 		}
 	});
