@@ -113,7 +113,7 @@ $('#message-form').on('submit', function(e){
 
 })
 
-var geo = navigator.geolocation
+var geo = navigator.geolocation;
 var locButton = $('#send-loc');
 locButton.on('click', function(){
 	if(!geo){

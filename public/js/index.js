@@ -12,7 +12,7 @@ if(Cookies.get('room') && Cookies.get('name')){
     $('input[name=name]').val(Cookies.get('name'))
 }
 
-socket.on('updateRoomList', (activeRooms) => {
+socket.on('updateRoomList', function(activeRooms) {
     $('#drop').html('');
     actRooms = activeRooms;
     if(activeRooms[0]){
@@ -70,7 +70,7 @@ $('#join-button').click(function (event) {
             socket.emit('data', {
                 room: customTrim($('input[name=room]').val().toLowerCase()),
                 name: customTrim($('input[name=name]').val().trim()),
-                isSecret
+                isSecret: isSecret
             })
             window.location.href = '/chat.html'
         }else {
