@@ -24,7 +24,6 @@ $('.chat__messages').css('padding-top', $('.chat__head').height())
 socket.on('connect', function() {
 	socket.emit('join',function(err) {
 		if(err) {
-			alert(err);
 			Cookies.remove('room', {path: '/'});
 			window.location.href = '/'
 		}
@@ -53,6 +52,7 @@ socket.on('setRoomName', function (user) {
 });
 
 socket.on('newMessage', function(message) {
+	console.log(message);
 	var formatedTime = moment(message.createdAt).format('HH:mm');
 	var template = $('#message-template').html();
 	var html = Mustache.render(template, {

@@ -16,46 +16,76 @@ var server = http.createServer(app);
 var io = socketIO(server);
 var users = new Users();
 var params;
-var activeRooms = []
+var activeRooms = [];
+var queue = [];
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(publicPath));
 
 io.on('connection', (socket) => {
 	socket.on('data', (data) => {
-		params = data
+		params = data;
 	})
 	socket.on('join', (callback) => {
-		if(!params) return callback('username and room name are required')
-		var username = users.getUserList(params.room).filter((user) => user === params.name);
-		if(!isRealString(params.name) || !isRealString(params.room)){
-			return callback('Name and room name are required');
-		}
-		if(username.length > 0){
-			return callback('that username is already in use, please take another one');
-		}
-		socket.join(params.room);
-		var roomIndex = checkRoom(activeRooms, params.room);
-		if(!roomIndex){
-			activeRooms.push({
-				name: params.room,
-				count: 1,
-				isSecret: params.isSecret
-			})
-		}else{
-			activeRooms[roomIndex].count += 1;
-		}
-		users.removeUser(socket.id);
-		users.addUser(socket.id, params.name, params.room);
+		if(!params) return callback('Fields marked with * are required');
+		if(params.isRandom){
+			if(!params) return callback('username is required');
+			if(!isRealString(params.name)){
+				return callback('Name is required');
+			}
+			if(queue.length === 0){
+				queue.push({socket, name: params.name});
+			}else{
+				var peer = queue.pop();
+				var room = `${peer.name} & ${params.name}`;
+				users.removeUser(socket.id);
+				users.removeUser(peer.socket.id);
+				users.addUser(socket.id, params.name, room);
+				users.addUser(peer.socket.id, peer.name, room);
+				socket.join(room);
+				peer.socket.join(room);
+				socket.emit('setRoomName', {
+					room,
+					name: params.name
+				})
+				peer.socket.emit('setRoomName', {
+					room,
+					name: peer.name
+				})
+			}
 
-		io.to(params.room).emit('updateUserList', users.getUserList(params.room));
-		socket.emit('setRoomName', {
-			room: params.room,
-			name: params.name
-		})
-		socket.emit('newMessage', generateMessage('Admin', 'Welcome User'));
-		socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin', `${params.name} has joined`));
-		callback('')
+		}else{
+			if(!params) return callback('username and room name are required')
+			var username = users.getUserList(params.room).filter((user) => user === params.name);
+			if(!isRealString(params.name) || !isRealString(params.room)){
+				return callback('Name and room name are required');
+			}
+			if(username.length > 0){
+				return callback('that username is already in use, please take another one');
+			}
+			socket.join(params.room);
+			var roomIndex = checkRoom(activeRooms, params.room);
+			if(!roomIndex){
+				activeRooms.push({
+					name: params.room,
+					count: 1,
+					isSecret: params.isSecret
+				})
+			}else{
+				activeRooms[roomIndex].count += 1;
+			}
+			users.removeUser(socket.id);
+			users.addUser(socket.id, params.name, params.room);
+
+			io.to(params.room).emit('updateUserList', users.getUserList(params.room));
+			socket.emit('setRoomName', {
+				room: params.room,
+				name: params.name
+			})
+			socket.emit('newMessage', generateMessage('Admin', 'Welcome User'));
+			socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin', `${params.name} has joined`));
+			callback('')
+		}
 	})
 
 	socket.on('createMessage', (message, callback) => {
