@@ -1,6 +1,6 @@
 var socket = io.connect();
-var room = atob(decodeURIComponent($.deparam().room));
-var name = atob(decodeURIComponent($.deparam().name));
+var room = Base64.decode(decodeURIComponent($.deparam().room));
+var name = Base64.decode(decodeURIComponent($.deparam().name));
 function isRealString (str){
     return typeof str === 'string' && str.trim().length > 0;
 }

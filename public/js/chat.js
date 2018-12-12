@@ -57,8 +57,8 @@ socket.on('match', function(){
 })
 
 socket.on('setRoomName', function (user) {
-	var encodedRoom = encodeURIComponent(btoa(user.room));
-	var encodedName = encodeURIComponent(btoa(user.name))
+	var encodedRoom = encodeURIComponent(Base64.encode(user.room));
+	var encodedName = encodeURIComponent(Base64.encode(user.name))
 	currentUser = user.name;
 	$('#chat-head').text(user.room);
 	$('#shareable-link').attr('value', window.location.hostname + '/invite.html?room=' + encodedRoom +  '&name=' + encodedName)
