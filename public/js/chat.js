@@ -31,7 +31,9 @@ socket.on('connect', function() {
 			backPath = 'random.html'
 		}
 		if(!isMatch && isRandom){
-			$('#loader').addClass('loader-show');
+			$("body").children().attr("style", "display: none !important");
+			$('#loader').attr("style", "display: flex !important");
+
 		}
 	});
 });
@@ -50,7 +52,8 @@ socket.on('updateUserList', function (users) {
 })
 
 socket.on('match', function(){
-	$('#loader').removeClass('loader-show')
+	$('#loader').removeClass('loader-show');
+	$('body').removeClass('hidden');
 })
 
 socket.on('setRoomName', function (user) {
