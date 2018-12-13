@@ -52,8 +52,8 @@ socket.on('updateUserList', function (users) {
 })
 
 socket.on('match', function(){
-	$('#loader').removeClass('loader-show');
-	$('body').removeClass('hidden');
+	$("body").children().removeAttr("style", "display: none !important");
+	$('#loader').removeAttr("style", "display: flex !important");
 })
 
 socket.on('setRoomName', function (user) {

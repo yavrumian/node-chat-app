@@ -111,6 +111,9 @@ io.on('connection', (socket) => {
 	})
 
 	socket.on('disconnect', () => {
+		if(queue[0] && (queue[0].socket.id === socket.id)){
+			queue.pop();
+		}
 		var user = users.removeUser(socket.id);
 		if(user) {
 			io.to(user.room).emit('updateUserList', users.getUserList(user.room));
