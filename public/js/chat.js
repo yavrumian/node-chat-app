@@ -1,11 +1,10 @@
 var socket = io();
 var backPath = '';
 var currentUser;
+var count = 0;
 function scrollToBottom() {
-	//Selectors
 	var messages = $('#messages');
 	var newMessage = messages.children('li:last-child');
-	//Heights
 	var clientHeight = messages.prop('clientHeight');
 	var scrollTop = messages.prop('scrollTop');
 	var scrollHeight = messages.prop('scrollHeight');
@@ -36,6 +35,13 @@ socket.on('connect', function() {
 
 		}
 	});
+	socket.emit('load', {num: 25, count: count}, function(err){
+		if(err){
+			Cookies.remove('room', {path: '/'});
+			window.location.href = '/'
+		}
+		count += 25
+	});
 });
 socket.on('disconnect', function() {
 
@@ -44,7 +50,6 @@ socket.on('disconnect', function() {
 socket.on('updateUserList', function (users) {
 	var ul = $('<ul></ul>');
 	users.forEach(function (user) {
-
 		ul.append($('<li></li>').text(user));
 	});
 
@@ -87,7 +92,8 @@ socket.on('newMessage', function(message, logout) {
 			'text-decoration': 'underline'
 		})
 	}
-	$('#messages').append(html)
+	if(message.isLoad) $('#messages').prepend(html)
+	else $('#messages').append(html)
 	scrollToBottom();
 })
 

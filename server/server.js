@@ -1,19 +1,23 @@
-const path = require('path');
-const http = require('http');
-const express = require('express');
-const socketIO = require('socket.io');
-const bodyParser = require('body-parser');
+require('./config/config')
 
+const path = require('path');
+const express = require('express');
+const app = express();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+const bodyParser = require('body-parser');
+const redis = require('redis');
+const fs = require('fs');
+
+const {mongoose} = require('./db/mongoose');
+const {Message} = require('./models/message')
 const {checkRoom} = require('./utils/roomCheck')
 const {Users} = require('./utils/users');
 const {generateMessage, generateLocMessage} = require('./utils/message');
 const {isRealString} = require('./utils/validation');
 
 const publicPath = path.join(__dirname, '../public');
-const port = process.env.PORT || 8080;
-var app = express();
-var server = http.createServer(app);
-var io = socketIO(server);
+const port = process.env.PORT;
 var users = new Users();
 var params;
 var activeRooms = [];
@@ -22,6 +26,7 @@ var peer;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(publicPath));
+
 
 io.on('connection', (socket) => {
 	socket.on('data', (data) => {
@@ -91,11 +96,37 @@ io.on('connection', (socket) => {
 		}
 	})
 
+	socket.on('load', async (data, callback) => {
+		var user = users.getUser(socket.id);
+		try{
+			const msgs = await Message.find({room: user.room}).sort({createdAt: -1}).limit(data.num).skip(data.count)
+			console.log(msgs);
+			msgs.forEach((msg) => {
+				io.to(user.room).emit('newMessage', {
+					from: user.name,
+					text: msg.text,
+					createdAt: msg.createdAt,
+					isLoad: true
+				});
+			})
+			callback();
+		}catch(e){
+			callback(e)
+		}
+	})
+
 	socket.on('createMessage', (message, callback) => {
 		var user = users.getUser(socket.id);
+		var msg = generateMessage(user.name, message.text)
 		if(user && isRealString(message.text)){
-			io.to(user.room).emit('newMessage', generateMessage(user.name, message.text));
+			io.to(user.room).emit('newMessage', msg);
 		}
+		new Message({
+			text: message.text,
+			_creator: user.name,
+			createdAt: msg.createdAt,
+			room: user.room
+		}).save();
 		callback();
 	});
 
@@ -130,6 +161,6 @@ io.on('connection', (socket) => {
 	});
 });
 
-server.listen(port, () => {
+http.listen(port, () => {
 	console.log('App is running on port ' + port )
 })
