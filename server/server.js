@@ -100,10 +100,9 @@ io.on('connection', (socket) => {
 		var user = users.getUser(socket.id);
 		try{
 			const msgs = await Message.find({room: user.room}).sort({createdAt: -1}).limit(data.num).skip(data.count)
-			console.log(msgs);
 			msgs.forEach((msg) => {
 				io.to(user.room).emit('newMessage', {
-					from: user.name,
+					from: msg._creator,
 					text: msg.text,
 					createdAt: msg.createdAt,
 					isLoad: true
@@ -121,12 +120,14 @@ io.on('connection', (socket) => {
 		if(user && isRealString(message.text)){
 			io.to(user.room).emit('newMessage', msg);
 		}
-		new Message({
-			text: message.text,
-			_creator: user.name,
-			createdAt: msg.createdAt,
-			room: user.room
-		}).save();
+		if(!message.isRandom){
+			new Message({
+				text: message.text,
+				_creator: user.name,
+				createdAt: msg.createdAt,
+				room: user.room
+			}).save();
+		}
 		callback();
 	});
 

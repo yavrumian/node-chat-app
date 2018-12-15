@@ -2,6 +2,7 @@ var socket = io();
 var backPath = '';
 var currentUser;
 var count = 0;
+var random;
 function scrollToBottom() {
 	var messages = $('#messages');
 	var newMessage = messages.children('li:last-child');
@@ -23,6 +24,7 @@ $('.chat__messages').css('padding-top', $('.chat__head').height())
 socket.on('connect', function() {
 	socket.emit('join',function(err, isRandom, isMatch) {
 		if(err) {
+
 			Cookies.remove('room', {path: '/'});
 			window.location.href = '/'
 		}
@@ -34,11 +36,14 @@ socket.on('connect', function() {
 			$('#loader').attr("style", "display: flex !important");
 
 		}
+		random = isRandom;
 	});
 	socket.emit('load', {num: 25, count: count}, function(err){
 		if(err){
+
 			Cookies.remove('room', {path: '/'});
-			window.location.href = '/'
+			window.location.href = '/';
+			console.log(err);
 		}
 		count += 25
 	});
@@ -92,7 +97,7 @@ socket.on('newMessage', function(message, logout) {
 			'text-decoration': 'underline'
 		})
 	}
-	if(message.isLoad) $('#messages').prepend(html)
+	if(message.isLoad) $('#load-more').parent().after(html)
 	else $('#messages').append(html)
 	scrollToBottom();
 })
@@ -115,6 +120,7 @@ $('#message-form').on('submit', function(e){
 	var messageTextbox = $('[name=message]');
 	e.preventDefault();
 	socket.emit('createMessage', {
+		isRandom: random,
 		text: messageTextbox.val()
 	}, function() {
 		messageTextbox.val('')
@@ -220,3 +226,14 @@ $(document).mouseup(function(e) {
 		$( ".fa-copy" ).tooltip( "close" );
     }
 });
+
+
+$('#load-more').click(function(){
+	socket.emit('load', {num: 10, count: count}, function(err){
+		if(err){
+			Cookies.remove('room', {path: '/'});
+			window.location.href = '/'
+		}
+		count += 10
+	});
+})

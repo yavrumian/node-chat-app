@@ -34,6 +34,13 @@
         .loader-show{
             display: flex;
         }
+        .load-more-btn{
+            text-align: center;
+            margin-top: 1vh;
+        }
+        li > button{
+            border-radius: 5px;
+        }
     </style>
 </head>
 
@@ -57,7 +64,12 @@
             <button id="back-button"><i class="fas fa-sign-out-alt fa-lg"></i></i></button>
             <span id="chat-head"></span>
         </div>
-        <ul id="messages" class="chat__messages" style="list-style-type:none"></ul>
+
+        <ul id="messages" class="chat__messages" style="list-style-type:none">
+            <li class="load-more-btn">
+                <button id="load-more">Load more <i class="fas fa-arrow-up"></i></button>
+            </li>
+        </ul>
         <div class="chat__footer">
             <form id="message-form">
                 <input type="text" data-emojible="true" id="message-input" placeholder="Your message here" name="message" autofocus autocomplete="off" />
