@@ -99,7 +99,7 @@ io.on('connection', (socket) => {
 	socket.on('load', async (data, callback) => {
 		var user = users.getUser(socket.id);
 		try{
-			const msgs = await Message.find({room: user.room}).sort({createdAt: -1}).limit(data.num).skip(data.count)
+			const msgs = await Message.find({room: user.room}).sort({createdAt: -1}).limit(data.num).skip(data.count);
 			msgs.forEach((msg) => {
 				io.to(user.room).emit('newMessage', {
 					from: msg._creator,
@@ -108,9 +108,12 @@ io.on('connection', (socket) => {
 					isLoad: true
 				});
 			})
+			if(msgs.length < data.num){
+				callback('OUT_OF_MESSAGES')
+			}
 			callback();
 		}catch(e){
-			callback(e)
+			callback('UNKNOWN_ERR')
 		}
 	})
 

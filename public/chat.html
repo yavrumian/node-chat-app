@@ -40,6 +40,12 @@
         }
         li > button{
             border-radius: 5px;
+            display: none
+        }
+        .no-message-warning{
+            display: none;
+            font-style: italic;
+            padding: 10px;
         }
     </style>
 </head>
@@ -66,6 +72,9 @@
         </div>
 
         <ul id="messages" class="chat__messages" style="list-style-type:none">
+            <li class="no-message-warning">
+                No more messages to load
+            </li>
             <li class="load-more-btn">
                 <button id="load-more">Load more <i class="fas fa-arrow-up"></i></button>
             </li>

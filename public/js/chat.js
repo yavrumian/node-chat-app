@@ -24,28 +24,34 @@ $('.chat__messages').css('padding-top', $('.chat__head').height())
 socket.on('connect', function() {
 	socket.emit('join',function(err, isRandom, isMatch) {
 		if(err) {
-
+			console.log(err);
 			Cookies.remove('room', {path: '/'});
-			window.location.href = '/'
+			window.location.href = '/' + backPath;
 		}
+		random = isRandom;
 		if(isRandom){
 			backPath = 'random.html'
 		}
 		if(!isMatch && isRandom){
 			$("body").children().attr("style", "display: none !important");
 			$('#loader').attr("style", "display: flex !important");
-
 		}
-		random = isRandom;
-	});
-	socket.emit('load', {num: 25, count: count}, function(err){
-		if(err){
 
-			Cookies.remove('room', {path: '/'});
-			window.location.href = '/';
-			console.log(err);
+		if(!isRandom || isMatch){
+			socket.emit('load', {num: 25, count: count}, function(err){
+				if(err == 'OUT_OF_MESSAGES'){
+					$('#load-more').css('display', 'none');
+				}
+				else if(err == 'UNKNOWN_ERR'){
+					Cookies.remove('room', {path: '/'});
+					window.location.href = '/' + backPath;
+				}
+				count += 25
+			});
 		}
-		count += 25
+		if(!isRandom){
+			$('#load-more').css('display', 'inline')
+		}
 	});
 });
 socket.on('disconnect', function() {
@@ -88,7 +94,7 @@ socket.on('newMessage', function(message, logout) {
 		$(header).css('color', '#0061c5')
 	}else if(message.from === 'Admin'){
 		if(backPath && logout){
-			window.location.href = '/random.html'
+			window.location.href = '/' + backPath;
 		}
 		html = $.parseHTML(html);
 		var text = $(html[1]).children()[1]
@@ -230,10 +236,12 @@ $(document).mouseup(function(e) {
 
 $('#load-more').click(function(){
 	socket.emit('load', {num: 10, count: count}, function(err){
-		if(err){
-			Cookies.remove('room', {path: '/'});
-			window.location.href = '/'
+		if(err == 'OUT_OF_MESSAGES'){
+			$('.no-message-warning').css('display', 'block');
+			$('#load-more').css('display', 'none');
+		}else if(err == 'UNKNOWN_ERR'){
+		}else{
+			count += 10
 		}
-		count += 10
 	});
 })
