@@ -105,7 +105,9 @@ socket.on('newMessage', function(message, logout) {
 	}
 	if(message.isLoad) $('#load-more').parent().after(html)
 	else $('#messages').append(html)
+	$('p').linkify()
 	scrollToBottom();
+
 })
 
 socket.on('newLocMessage', function(message) {

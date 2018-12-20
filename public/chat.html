@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="./css/jquery-ui.min.css" />
+
     <link rel="stylesheet" type="text/css" href="./css/styles.css">
     <style>
         .loader{
@@ -81,7 +82,7 @@
         </ul>
         <div class="chat__footer">
             <form id="message-form">
-                <input type="text" data-emojible="true" id="message-input" placeholder="Your message here" name="message" autofocus autocomplete="off" />
+                <input type="text" id="message-input" placeholder="Your message here" name="message" autofocus autocomplete="off" />
                 <button>Send</button>
             </form>
             <button id="send-loc">Send location</button>
@@ -127,6 +128,8 @@
     <script src="/js/libs/jquery-ui.min.js"></script>
     <script src="/js/libs/deparam.js"></script>
     <script src="/js/libs/js.cookie.js"></script>
+    <script src="/js/libs/linkify.min.js"></script>
+    <script src="/js/libs/linkify-jquery.min.js"></script>
     <script src="/js/libs/base64.js"></script>
     <script src="/js/chat.js"></script>
 </body>
