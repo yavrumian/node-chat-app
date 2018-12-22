@@ -3,6 +3,21 @@ var backPath = '';
 var currentUser;
 var count = 0;
 var random;
+
+function submit(e){
+	e.preventDefault();
+	var messageTextbox = $('[name=message]');
+	if(messageTextbox.val()){
+		socket.emit('createMessage', {
+			isRandom: random,
+			text: messageTextbox.val()
+		}, function() {
+			messageTextbox.val('');
+			messageTextbox.focus()
+		})
+	}
+}
+
 function scrollToBottom() {
 	var messages = $('#messages');
 	var newMessage = messages.children('li:last-child');
@@ -125,23 +140,15 @@ socket.on('newLocMessage', function(message) {
 	scrollToBottom();
 })
 
-
-$('#message-form').on('submit', function(e){
-
-	var messageTextbox = $('[name=message]');
-	e.preventDefault();
-	socket.emit('createMessage', {
-		isRandom: random,
-		text: messageTextbox.val()
-	}, function() {
-		messageTextbox.val('');
-		messageTextbox.focus()
-	})
-
+$('body').keypress(function(e){
+	if(e.which === 13){
+		e.preventDefault();
+		submit(e);
+	}
 })
 $('#send-btn').click(function(e){
-	e.preventDefault();
-	$('#message-form').submit();
+	e.preventDefault()
+	submit(e);
 })
 var geo = navigator.geolocation;
 var locButton = $('#send-loc');
