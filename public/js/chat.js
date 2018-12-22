@@ -134,7 +134,8 @@ $('#message-form').on('submit', function(e){
 		isRandom: random,
 		text: messageTextbox.val()
 	}, function() {
-		messageTextbox.val('')
+		messageTextbox.val('');
+		messageTextbox.focus()
 	})
 
 })
