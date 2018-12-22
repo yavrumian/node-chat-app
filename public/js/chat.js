@@ -17,6 +17,7 @@ function scrollToBottom() {
 	}
 }
 $(document).ready(function(){
+	$('body').css('overflow-x', 'hidden');
 	$('#myPopup').hide();
 })
 $('.chat__messages').css('padding-top', $('.chat__head').height())
@@ -105,7 +106,9 @@ socket.on('newMessage', function(message, logout) {
 	}
 	if(message.isLoad) $('#load-more').parent().after(html)
 	else $('#messages').append(html)
-	$('p').linkify()
+	$('p').linkify({
+		className: ''
+	})
 	scrollToBottom();
 
 })

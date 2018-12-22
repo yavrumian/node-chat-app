@@ -46,8 +46,8 @@ button,button:hover{border:none;color:#fff;padding:10px;}.chat__messages,.chat__
     .currentUserMessage{
         color: red;
     }
-    body{
-        overflow-x: hidden;
+    .toggle-button{
+        opacity: 0.7;
     }.button__share{
         color: white;
         cursor: pointer;
@@ -189,4 +189,42 @@ opacity: 0.5;
 -moz-transition: all 0.9s ease-in-out;
 -o-transition: all 0.9s ease-in-out;
 transition: all 0.9s ease-in-out;
+}.loader{
+    width: 50%;
+    background-color: white;
+    text-align: center;
+    border-radius: 40px;
+}
+.loader img{
+    width: 50%;
+    margin-top: 3vh;
+}
+.loader p{
+    font-size:1.5rem;
+    padding-bottom: 5vh;
+}
+.loader-bg{
+    position: absolute;
+    display: none;
+    background: linear-gradient(325deg,rgba(39,107,130,1) 0,rgba(49,84,129,1) 100%);
+    width:100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+.loader-show{
+    display: flex;
+}
+.load-more-btn{
+    text-align: center;
+    margin-top: 1vh;
+}
+li > button{
+    border-radius: 5px;
+    display: none
+}
+.no-message-warning{
+    display: none;
+    font-style: italic;
+    padding: 10px;
 }
