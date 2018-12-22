@@ -139,7 +139,10 @@ $('#message-form').on('submit', function(e){
 	})
 
 })
-
+$('#send-btn').click(function(e){
+	e.preventDefault();
+	$('#message-form').submit();
+})
 var geo = navigator.geolocation;
 var locButton = $('#send-loc');
 locButton.on('click', function(){
