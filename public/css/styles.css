@@ -191,7 +191,7 @@ opacity: 0.5;
 transition: all 0.9s ease-in-out;
 }.loader{
     width: 50%;
-    background-color: white;
+    background-color: #315481;
     text-align: center;
     border-radius: 40px;
 }
@@ -206,7 +206,7 @@ transition: all 0.9s ease-in-out;
 .loader-bg{
     position: absolute;
     display: none;
-    background: linear-gradient(325deg,rgba(39,107,130,1) 0,rgba(49,84,129,1) 100%);
+    background: linear-gradient(325deg,rgb(49, 85, 129) 0,rgba(49,84,129,1) 100%);
     width:100vw;
     height: 100vh;
     justify-content: center;
