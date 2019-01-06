@@ -191,11 +191,11 @@ opacity: 0.5;
 transition: all 0.9s ease-in-out;
 }.loader{
     width: 50%;
-    background-color: #315481;
+    background-color: #ffffff;
     text-align: center;
     border-radius: 40px;
 }
-.loader img{
+.loader video{
     width: 50%;
     margin-top: 3vh;
 }
