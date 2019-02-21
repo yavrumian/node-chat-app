@@ -1,7 +1,6 @@
 {
-  "name": "chat-app",
+  "name": "customer-support",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node server/server.js",
@@ -28,5 +27,14 @@
     "expect": "^23.6.0",
     "mocha": "^5.2.0",
     "nodemon": "^1.18.7"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yavrumian/customer-support.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yavrumian/customer-support/issues"
+  },
+  "homepage": "https://github.com/yavrumian/customer-support#readme",
+  "description": ""
 }
