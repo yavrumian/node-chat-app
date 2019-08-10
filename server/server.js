@@ -1,28 +1,27 @@
 require('./config/config')
 
-const path = require('path');
-const express = require('express');
-const app = express();
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
-const bodyParser = require('body-parser');
-const redis = require('redis');
-const fs = require('fs');
+const path = require('path'),
+	express = require('express'),
+	app = express(),
+	http = require('http').Server(app),
+	io = require('socket.io')(http),
+	bodyParser = require('body-parser'),
+	fs = require('fs'),
 
-const {mongoose} = require('./db/mongoose');
-const {Message} = require('./models/message')
-const {checkRoom} = require('./utils/roomCheck')
-const {Users} = require('./utils/users');
-const {generateMessage, generateLocMessage} = require('./utils/message');
-const {isRealString} = require('./utils/validation');
+	{mongoose} = require('./db/mongoose'),
+	{Message} = require('./models/message'),
+	{checkRoom} = require('./utils/roomCheck'),
+	{Users} = require('./utils/users'),
+	{generateMessage, generateLocMessage} = require('./utils/message'),
+	{isRealString} = require('./utils/validation'),
 
-const publicPath = path.join(__dirname, '../public');
-const port = process.env.PORT;
-var users = new Users();
-var params;
-var activeRooms = [];
-var queue = [];
-var peer;
+	publicPath = path.join(__dirname, '../public'),
+	port = process.env.PORT;
+var users = new Users(),
+ params,
+ activeRooms = [],
+ queue = [],
+ peer;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(publicPath));

@@ -5,7 +5,12 @@ mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI);
+
+try{
+	mongoose.connect(process.env.MONGODB_URI);
+}catch(e){
+	console.log('Failed to connect to DB because of following reason' + e);
+}
 
 module.exports ={
 	mongoose
