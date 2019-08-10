@@ -13,4 +13,4 @@ If you want to **download** and use it for personal purposes you must follow thi
 5. Run `npm start` (For starting the application)
 6. And finally visit `localhost:<PORT>` (For enjoying :d) 
 
-****PLEASE*** if you notice any **bug**, inform me by [this email](yavrumian@protonmail.com) or open an issue
+****PLEASE*** if you notice any **bug**, inform me by following email or open an issue (yavrumian@protonmail.com)
