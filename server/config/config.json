@@ -1,10 +1,10 @@
 {
 	"test": {
-		"PORT": 8080,
-		"MONGODB_URI": "mongodb://localhost:27017/ChatAppTest"
+		"PORT": <PORT>,
+		"MONGODB_URI": "<MONGODB_URI>"
 	},
 	"development": {
-		"PORT": 8080,
-		"MONGODB_URI": "mongodb://localhost:27017/ChatApp"
+		"PORT": <PORT>,
+		"MONGODB_URI": "<MONGODB_URI>"
 	}
 }
