@@ -19,7 +19,7 @@
     "mongod": "^2.0.0",
     "mongodb": "^3.1.10",
     "mongoose": "^5.7.5",
-    "pm2": "^4.4.0",
+    "pm2": "^5.2.0",
     "socket.io": "^2.4.0"
   },
   "devDependencies": {},
